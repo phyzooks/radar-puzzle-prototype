@@ -5,16 +5,12 @@ export class HypothesisEngine {
 
     private possibleSolutions: Solution[];
 
-
     constructor(
         allSolutions: Solution[]
     ) {
-
         this.possibleSolutions =
             [...allSolutions];
-
     }
-
 
     public filterByRadar(
         row:number,
@@ -25,47 +21,32 @@ export class HypothesisEngine {
         this.possibleSolutions =
             this.possibleSolutions.filter(
                 solution => {
-
                     return this.calculateDistance(
                         solution,
                         row,
                         col
                     ) === distance;
-
                 }
             );
-
     }
-
 
     private calculateDistance(
         solution:Solution,
         row:number,
         col:number
     ):number {
-
         let closestDistance = Infinity;
-
-
         for(let r = 0; r < solution.mines.length; r++) {
-
             const mineCol =
                 solution.mines[r];
-
-
             const distance =
                 Math.max(
                     Math.abs(row-r),
                     Math.abs(col-mineCol)
                 );
-
-
             if(distance < closestDistance) {
-
                 closestDistance = distance;
-
             }
-
         }
 
 
