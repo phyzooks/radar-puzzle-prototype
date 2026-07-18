@@ -14,31 +14,33 @@ body {
   justify-content: center;
   align-items: center;
   gap: 15px;
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 .board {
   display: grid;
   grid-template-columns: repeat(5, 80px);
   grid-template-rows: repeat(5, 80px);
-  gap: 4px;
+  gap: 0px;
 }
 
 .cell {
   background: #333;
-  border: 2px solid #666;
+  border: 1px solid #666;
   cursor: pointer;
   transition: 0.2s;
 }
 
 .cell:hover {
-  background: #555;
+  /*background: #555;*/
+  border: 5px solid rgb(229, 255, 0);
+
 }
 
-.cell.selected {
+/*.cell.selected {
   background: #4caf50;
 }
-
+*/
 p {
   margin: 0;
   font-size: 20px;
@@ -53,20 +55,34 @@ p {
 }
 
 
-.cell.low {
-  background: #285;
+.safe {
+    background-color: rgb(46, 145, 62);
 }
 
-
-.cell.medium {
-  background: #a86;
+.very-low {
+    background-color: rgb(255, 253, 128);
 }
 
+.low {
+    background-color: rgb(255, 251, 0);
+}
 
-.cell.high {
-  background: #a33;
+.medium {
+    background-color: rgb(255, 187, 0);
+}
+
+.high {
+    background-color: rgb(255, 123, 0);
+}
+
+.very-high {
+    background-color: red;
+}
+
+.certain {
+    background-color: darkred;
 }
 
 .scanned {
-    border: 3px solid rgb(0, 140, 255);
+    border: 5px solid rgb(255, 255, 255);
 }

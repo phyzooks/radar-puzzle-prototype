@@ -97,18 +97,36 @@ public showScanned(
     );
 
 }
-  private getProbabilityClass(value:number):string {
+  private getProbabilityClass(
+    percent:number
+):string {
 
-    if (value >= 75) {
-      return "high";
+    if (percent === 0) {
+        return "safe";
     }
 
-    if (value >= 40) {
-      return "medium";
+    if (percent <= 20) {
+        return "very-low";
     }
 
-    return "low";
-  }
+    if (percent <= 40) {
+        return "low";
+    }
+
+    if (percent <= 60) {
+        return "medium";
+    }
+
+    if (percent <= 80) {
+        return "high";
+    }
+
+    if (percent < 100) {
+        return "very-high";
+    }
+
+    return "certain";
+}
 
 
   public clearSelections() {
@@ -139,15 +157,19 @@ public showScanned(
   );
 
 
-  if(percent >= 70) {
-    cell.classList.add("high");
-  }
-  else if(percent >= 35) {
-    cell.classList.add("medium");
-  }
-  else {
-    cell.classList.add("low");
-  }
+  cell.classList.remove(
+    "safe",
+    "very-low",
+    "low",
+    "medium",
+    "high",
+    "very-high",
+    "certain"
+);
+
+cell.classList.add(
+    this.getProbabilityClass(percent)
+);
 
 }
     public showProbabilities(
