@@ -29,6 +29,7 @@ body {
   border: 1px solid #666;
   cursor: pointer;
   transition: 0.2s;
+  white-space: pre-line;
 }
 
 .cell:hover {

@@ -71,20 +71,38 @@ export class Board {
 
 
   public showProbeResult(
-    row:number,
-    col:number,
-    value:number
-  ) {
+  row:number,
+  col:number,
+  radarValue:number,
+  probability:number
+) {
 
-    const cell = this.cells[row][col];
+  const cell = this.cells[row][col];
 
-    cell.textContent = `${value}%`;
+  const percent =
+    Math.round(probability * 100);
 
-    cell.classList.add(
-      this.getProbabilityClass(value)
-    );
-  }
+  cell.textContent =
+    `${percent}%\nR:${radarValue}`;
 
+  cell.classList.add(
+    this.getProbabilityClass(percent)
+  );
+}
+public showRadarResult(
+  row: number,
+  col: number,
+  value: number
+) {
+
+  const cell = this.cells[row][col];
+
+  const currentText = cell.textContent;
+
+  cell.textContent =
+    `${currentText}\nR:${value}`;
+
+}
 public showScanned(
     row:number,
     col:number

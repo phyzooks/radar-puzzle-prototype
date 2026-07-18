@@ -144,15 +144,23 @@ export class Game {
         signal
     );
     this.board.showProbabilities(
-        this.hypothesisEngine
-    );
-    this.scannedTiles.add(
-        `${row},${col}`
-    );
-    this.board.showScanned(
-        row,
-        col
-    );
+    this.hypothesisEngine
+);
+
+this.board.showRadarResult(
+    row,
+    col,
+    signal
+);
+
+this.scannedTiles.add(
+    `${row},${col}`
+);
+
+this.board.showScanned(
+    row,
+    col
+);
 
 console.log(
     "Remaining solutions:",
