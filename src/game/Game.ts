@@ -99,17 +99,45 @@ export class Game {
 }
 
     private handleCellClick(
-        row:number,
-        col:number,
-        element:HTMLDivElement
-    ) {
+    row: number,
+    col: number,
+    element: HTMLDivElement
+) {
+
+    const added =
+        this.probeManager.addProbe(row, col);
+
+
+    if (!added) {
 
         console.log(
-            "Clicked:",
-            row,
-            col
+            "Maximum probes reached"
         );
 
+        return;
+
     }
+
+
+    if (
+        this.probeManager.getProbes()
+            .includes(`${row},${col}`)
+    ) {
+
+        element.classList.add("selected");
+
+    } else {
+
+        element.classList.remove("selected");
+
+    }
+
+
+    console.log(
+        "Current probes:",
+        this.probeManager.getProbes()
+    );
+
+}
 
 }
