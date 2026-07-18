@@ -1,0 +1,115 @@
+import { Board } from './Board';
+import { Puzzle } from './Puzzle';
+import { ProbeManager } from './ProbeManager';
+import { ProbeEngine } from './ProbeEngine';
+import { ProbabilityEngine } from './ProbabilityEngine';
+
+
+
+export class Game {
+
+    private turn:number = 1;
+    private turnDisplay:HTMLDivElement;
+    private endButton:HTMLButtonElement;
+    private board: Board;
+    private puzzle: Puzzle;
+    private probeManager: ProbeManager;
+    private probeEngine: ProbeEngine;
+    private probabilityEngine: ProbabilityEngine;
+
+    private app: HTMLElement;
+
+
+    constructor(app: HTMLElement) {
+
+        this.app = app;
+
+        this.puzzle = new Puzzle(5);
+
+        this.board = new Board(
+            5,
+            this.puzzle,
+            this.handleCellClick.bind(this)
+        );
+
+
+        this.probeManager = new ProbeManager();
+
+        this.probeEngine =
+            new ProbeEngine(this.puzzle);
+
+
+        this.probabilityEngine =
+            new ProbabilityEngine(
+                this.puzzle.getAllSolutions()
+            );
+
+    }
+
+
+    public start() {
+
+    this.board.render(this.app);
+
+    this.createControls();
+
+    }
+    private endTurn() {
+
+    console.log(
+        "Ending turn:",
+        this.turn
+    );
+
+
+    this.turn++;
+
+    this.turnDisplay.textContent =
+        `Turn ${this.turn}/5`;
+
+    }
+    private createControls() {
+
+    this.turnDisplay =
+        document.createElement('div');
+
+    this.turnDisplay.textContent =
+        `Turn ${this.turn}/5`;
+
+
+    this.endButton =
+        document.createElement('button');
+
+    this.endButton.textContent =
+        "End Turn";
+
+
+    this.endButton.onclick =
+        () => this.endTurn();
+
+
+    this.app.appendChild(
+        this.turnDisplay
+    );
+
+    this.app.appendChild(
+        this.endButton
+    );
+
+}
+
+    private handleCellClick(
+        row:number,
+        col:number,
+        element:HTMLDivElement
+    ) {
+
+        console.log(
+            "Clicked:",
+            row,
+            col
+        );
+
+    }
+
+}
