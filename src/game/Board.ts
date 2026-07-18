@@ -1,5 +1,5 @@
 import { Puzzle } from './Puzzle';
-import { ProbabilityEngine } from './ProbabilityEngine';
+import { HypothesisEngine } from './HypothesisEngine';
 
 export class Board {
   private size: number;
@@ -85,7 +85,18 @@ export class Board {
     );
   }
 
+public showScanned(
+    row:number,
+    col:number
+) {
 
+    const cell = this.cells[row][col];
+
+    cell.classList.add(
+        "scanned"
+    );
+
+}
   private getProbabilityClass(value:number):string {
 
     if (value >= 75) {
@@ -140,7 +151,7 @@ export class Board {
 
 }
     public showProbabilities(
-  probabilityEngine: ProbabilityEngine
+  hypothesisEngine: HypothesisEngine
 ) {
 
   for(let row=0; row<this.size; row++) {
@@ -148,10 +159,10 @@ export class Board {
     for(let col=0; col<this.size; col++) {
 
       const probability =
-        probabilityEngine.getProbability(
-          row,
-          col
-        );
+  hypothesisEngine.getMineProbability(
+    row,
+    col
+  );
 
       this.showProbability(
         row,

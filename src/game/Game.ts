@@ -20,7 +20,7 @@ export class Game {
     private probabilityEngine: ProbabilityEngine;
     private radarEngine: RadarEngine;
     private hypothesisEngine: HypothesisEngine;
-
+    private scannedTiles: Set<string>;
     
 
     private app: HTMLElement;
@@ -57,6 +57,7 @@ export class Game {
             new HypothesisEngine(
             this.puzzle.getAllSolutions()
             );
+        this.scannedTiles = new Set();
     }
 
 
@@ -133,15 +134,25 @@ export class Game {
     const signal =
     this.radarEngine.scan(row,col);
 
-        console.log(
+    console.log(
         "Radar signal:",
         signal
     );
     this.hypothesisEngine.filterByRadar(
-    row,
-    col,
-    signal
-);
+        row,
+        col,
+        signal
+    );
+    this.board.showProbabilities(
+        this.hypothesisEngine
+    );
+    this.scannedTiles.add(
+        `${row},${col}`
+    );
+    this.board.showScanned(
+        row,
+        col
+    );
 
 console.log(
     "Remaining solutions:",
