@@ -3,6 +3,7 @@ import { Puzzle } from './Puzzle';
 import { ProbeManager } from './ProbeManager';
 import { ProbeEngine } from './ProbeEngine';
 import { ProbabilityEngine } from './ProbabilityEngine';
+import { RadarEngine } from './RadarEngine';
 
 
 
@@ -16,6 +17,7 @@ export class Game {
     private probeManager: ProbeManager;
     private probeEngine: ProbeEngine;
     private probabilityEngine: ProbabilityEngine;
+    private radarEngine: RadarEngine;
 
     private app: HTMLElement;
 
@@ -43,7 +45,10 @@ export class Game {
             new ProbabilityEngine(
                 this.puzzle.getAllSolutions()
             );
-
+        this.radarEngine =
+            new RadarEngine(
+                this.puzzle.getMineLocations()
+            );
     }
 
 
@@ -102,7 +107,7 @@ export class Game {
     row: number,
     col: number,
     element: HTMLDivElement
-) {
+    ) {
 
     const added =
         this.probeManager.addProbe(row, col);
@@ -117,7 +122,13 @@ export class Game {
         return;
 
     }
+    const signal =
+    this.radarEngine.scan(row,col);
 
+        console.log(
+        "Radar signal:",
+        signal
+);
 
     if (
         this.probeManager.getProbes()
@@ -136,7 +147,8 @@ export class Game {
     console.log(
         "Current probes:",
         this.probeManager.getProbes()
-    );
+        );
+    
 
 }
 

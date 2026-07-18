@@ -109,5 +109,21 @@ export class Puzzle {
     return solutions;
 
   }
+public getMineLocations(): string[] {
 
+    const locations:string[] = [];
+
+    for(let row = 0; row < this.size; row++) {
+
+        const col = this.actualSolution[row];
+
+        locations.push(
+            `${row},${col}`
+        );
+
+    }
+
+    return locations;
+
+}
 }
