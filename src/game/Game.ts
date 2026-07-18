@@ -4,6 +4,7 @@ import { ProbeManager } from './ProbeManager';
 import { ProbeEngine } from './ProbeEngine';
 import { ProbabilityEngine } from './ProbabilityEngine';
 import { RadarEngine } from './RadarEngine';
+import { HypothesisEngine } from './HypothesisEngine';
 
 
 
@@ -18,6 +19,9 @@ export class Game {
     private probeEngine: ProbeEngine;
     private probabilityEngine: ProbabilityEngine;
     private radarEngine: RadarEngine;
+    private hypothesisEngine: HypothesisEngine;
+
+    
 
     private app: HTMLElement;
 
@@ -34,7 +38,7 @@ export class Game {
             this.handleCellClick.bind(this)
         );
 
-
+        
         this.probeManager = new ProbeManager();
 
         this.probeEngine =
@@ -48,6 +52,10 @@ export class Game {
         this.radarEngine =
             new RadarEngine(
                 this.puzzle.getMineLocations()
+            );
+        this.hypothesisEngine =
+            new HypothesisEngine(
+            this.puzzle.getAllSolutions()
             );
     }
 
@@ -128,8 +136,40 @@ export class Game {
         console.log(
         "Radar signal:",
         signal
+    );
+    this.hypothesisEngine.filterByRadar(
+    row,
+    col,
+    signal
 );
 
+console.log(
+    "Remaining solutions:",
+    this.hypothesisEngine.getSolutionCount()
+);
+console.log("Probability Map:");
+
+for(let r = 0; r < 5; r++) {
+
+    let line = "";
+
+    for(let c = 0; c < 5; c++) {
+
+        const probability =
+            this.hypothesisEngine.getMineProbability(
+                r,
+                c
+            );
+
+        line +=
+            Math.round(probability * 100)
+            + "% ";
+
+    }
+
+    console.log(line);
+
+}
     if (
         this.probeManager.getProbes()
             .includes(`${row},${col}`)
@@ -148,7 +188,24 @@ export class Game {
         "Current probes:",
         this.probeManager.getProbes()
         );
-    
+    const hypothesis =
+        new HypothesisEngine(
+        this.puzzle.getAllSolutions()
+    );
+
+    /*console.log(
+        "Starting solutions:",
+        hypothesis.getSolutionCount()
+    );
+*/
+hypothesis.filterByRadar(
+    2,
+    2,
+    this.radarEngine.scan(2,2)
+);
+
+
+
 
 }
 
