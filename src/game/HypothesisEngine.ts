@@ -48,47 +48,26 @@ export class HypothesisEngine {
                 closestDistance = distance;
             }
         }
-
-
         return closestDistance;
-
     }
-
-
     public getSolutionCount():number {
-
         return this.possibleSolutions.length;
-
     }
-
-
     public getMineProbability(
         row:number,
         col:number
     ):number {
-
         if(this.possibleSolutions.length === 0) {
             return 0;
         }
-
-
         let mineCount = 0;
-
-
         for(const solution of this.possibleSolutions) {
-
             if(solution.containsMine(row,col)) {
-
                 mineCount++;
-
             }
-
         }
-
 
         return mineCount /
             this.possibleSolutions.length;
-
     }
-
 }

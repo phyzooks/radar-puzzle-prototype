@@ -14,10 +14,7 @@ export class Solution {
   }
 
 
-  public containsMine(
-    row:number,
-    col:number
-  ):boolean {
+  public containsMine(row:number,col:number):boolean {
 
     return this.mines[row] === col;
 
