@@ -15,24 +15,23 @@ export class Game {
     private probeManager: ProbeManager;
     private player: Player;
     private radarEngine: RadarEngine;
-    
     private scannedTiles: Set<string>;
-    
-
     private app: HTMLElement;
-    
+    private readonly boardSize = 5;
+    private readonly goalRow = this.boardSize - 1;
+    private readonly goalCol = this.boardSize - 1;
 
     constructor(app: HTMLElement) {
 
         this.app = app;
 
-        this.puzzle = new Puzzle(5);
+        this.puzzle = new Puzzle(this.boardSize);
 
         this.board = new Board(
-            5,
-            this.puzzle,
-            this.handleCellClick.bind(this)
-        );
+        this.boardSize,
+        this.puzzle,
+        this.handleCellClick.bind(this)
+);
         this.player = new Player();
         
         this.probeManager = new ProbeManager(2,5);
@@ -60,18 +59,44 @@ export class Game {
     public start() {
 
     this.board.render(this.app);
+
     this.board.showPlayer(
         this.player.getRow(),
         this.player.getCol()
         );
+    this.board.showGoal(
+        this.goalRow,
+        this.goalCol
+        );
     this.createControls();
 
     }
+
     private endTurn() {
 
     console.log(
         "Ending turn:",
         this.turn
+    );
+
+    const oldRow = this.player.getRow();
+    const oldCol = this.player.getCol();
+
+    const newRow = oldRow;
+    const newCol = oldCol + 1;
+
+
+    this.player.move(
+        newRow,
+        newCol
+    );
+
+
+    this.board.movePlayer(
+        oldRow,
+        oldCol,
+        newRow,
+        newCol
     );
 
 
@@ -80,7 +105,7 @@ export class Game {
     this.turnDisplay.textContent =
         `Turn ${this.turn}/5`;
 
-    }
+}
     private createControls() {
 
     this.turnDisplay =
@@ -170,10 +195,10 @@ if (
 
 }*/
 
-console.log(
+/*console.log(
     "Current probes:",
     this.probeManager.getProbes()
-);
+);*/
 }
 
 }

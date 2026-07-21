@@ -33,6 +33,34 @@ export class Player {
         this.col = col;
 
     }
+    public canMoveTo(
+        row: number,
+        col: number
+    ): boolean {
+
+    const rowDistance =
+        Math.abs(row - this.row);
+
+    const colDistance =
+        Math.abs(col - this.col);
+
+    return (
+        rowDistance <= 1 &&
+        colDistance <= 1 &&
+        !(rowDistance === 0 && colDistance === 0)
+    );
+
+    }
+
+    public move(
+        row: number,
+        col: number
+    ) {
+
+        this.row = row;
+        this.col = col;
+
+    }
 
     public takeDamage(
         amount: number

@@ -33,7 +33,11 @@ export class Board {
 
     this.element = document.createElement('div');
     this.element.className = 'board';
+    this.element.style.gridTemplateColumns =
+    `repeat(${this.size}, 80px)`;
 
+    this.element.style.gridTemplateRows =
+    `repeat(${this.size}, 80px)`;
     this.createCells();
   }
 
@@ -80,6 +84,18 @@ public showPlayer(
     cell.classList.add("player");
 
 }
+
+public showGoal(
+    row: number,
+    col: number
+) {
+
+    const cell = this.cells[row][col];
+
+    cell.classList.add("goal");
+
+}
+
   public showProbeResult(
   row:number,
   col:number,
@@ -133,6 +149,20 @@ public showScanned(
     cell.classList.add(
         "scanned"
     );
+
+}
+public movePlayer(
+    oldRow: number,
+    oldCol: number,
+    newRow: number,
+    newCol: number
+) {
+
+    this.cells[oldRow][oldCol]
+        .classList.remove("player");
+
+    this.cells[newRow][newCol]
+        .classList.add("player");
 
 }
   /*private getProbabilityClass(

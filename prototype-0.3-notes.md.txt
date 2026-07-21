@@ -1,0 +1,21 @@
+Board is 5×5.
+
+Exactly one mine in every row.
+Exactly one mine in every column.
+
+Player starts at (0,0).
+Goal is (4,4).
+
+Current player tile is always mine-free.
+
+Player may use up to two radar probes.
+
+Radar displays only d = 0 and d = 1.
+
+Player moves one square.
+
+Mines explode.
+
+Damage depends on distance.
+
+New minefield is generated.

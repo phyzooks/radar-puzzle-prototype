@@ -19,8 +19,6 @@ body {
 
 .board {
   display: grid;
-  grid-template-columns: repeat(5, 80px);
-  grid-template-rows: repeat(5, 80px);
   gap: 4px;
 }
 
@@ -30,6 +28,10 @@ body {
   cursor: pointer;
   transition: 0.2s;
   white-space: pre-line;
+}
+
+.goal {
+    outline: 4px solid lime;
 }
 
 .player {
