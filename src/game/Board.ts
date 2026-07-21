@@ -85,9 +85,9 @@ export class Board {
   cell.textContent =
     `${percent}%\nR:${radarValue}`;
 
-  cell.classList.add(
+  /*cell.classList.add(
     this.getProbabilityClass(percent)
-  );
+  );*/
 }
 public showRadarResult(
   row: number,
@@ -115,7 +115,7 @@ public showScanned(
     );
 
 }
-  private getProbabilityClass(
+  /*private getProbabilityClass(
     percent:number
 ):string {
 
@@ -144,7 +144,7 @@ public showScanned(
     }
 
     return "certain";
-}
+}*/
 
 
   public clearSelections() {
@@ -156,63 +156,68 @@ public showScanned(
     });
 
   }
-  public showProbability(
-  row: number,
-  col: number,
-  probability: number
+  public showRadarRings(
+    probeRow: number,
+    probeCol: number,
+    ringCounts: number[]
 ) {
+    console.log("showRadarRings", probeRow, probeCol, ringCounts);
+    for (let row = 0; row < this.size; row++) {
 
-  const cell = this.cells[row][col];
+        for (let col = 0; col < this.size; col++) {
 
-  const percent = Math.round(probability * 100);
+            const distance =
+                Math.max(
+                    Math.abs(row - probeRow),
+                    Math.abs(col - probeCol)
+                );
+                if (distance > 2) {
+                  continue;
+                }
+            const count = ringCounts[distance];
 
-  cell.textContent = `${percent}%`;
+            const cell = this.cells[row][col];
 
-  cell.classList.remove(
-    "low",
-    "medium",
-    "high"
-  );
+            cell.classList.remove(
+                "zero",
+                "one",
+                "two",
+                "three",
+                "mine"
+            );
 
+            if (distance === 0 && count > 0) {
 
-  cell.classList.remove(
-    "safe",
-    "very-low",
-    "low",
-    "medium",
-    "high",
-    "very-high",
-    "certain"
-);
-
-cell.classList.add(
-    this.getProbabilityClass(percent)
-);
+    cell.classList.add("mine");
 
 }
-    public showProbabilities(
-  hypothesisEngine: HypothesisEngine
-) {
+else {
 
-  for(let row=0; row<this.size; row++) {
+    switch (count) {
 
-    for(let col=0; col<this.size; col++) {
+        case 0:
+            cell.classList.add("zero");
+            break;
 
-      const probability =
-  hypothesisEngine.getMineProbability(
-    row,
-    col
-  );
+        case 1:
+            cell.classList.add("one");
+            break;
 
-      this.showProbability(
-        row,
-        col,
-        probability
-      );
+        case 2:
+            cell.classList.add("two");
+            break;
+
+        default:
+            cell.classList.add("three");
+            break;
 
     }
 
-  }
+}
+
+        }
+
+    }
 
 }
   public render(parent: HTMLElement) {

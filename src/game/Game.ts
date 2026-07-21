@@ -53,10 +53,7 @@ export class Game {
             new RadarEngine(
                 this.puzzle.getMineLocations()
             );
-        this.hypothesisEngine =
-            new HypothesisEngine(
-            this.puzzle.getAllSolutions()
-            );
+        
         this.scannedTiles = new Set();
     }
 
@@ -135,24 +132,15 @@ export class Game {
     this.radarEngine.scan(row,col);
 
     console.log(
-        "Radar signal:",
-        signal
-    );
-    console.log(signal);
-    this.hypothesisEngine.filterByRadar(
-        row,
-        col,
-        signal
-    );
-    this.board.showProbabilities(
-    this.hypothesisEngine
+    "Radar signal:",
+    signal
 );
-
-this.board.showRadarResult(
+this.board.showRadarRings(
     row,
     col,
     signal
 );
+
 
 this.scannedTiles.add(
     `${row},${col}`
@@ -163,70 +151,23 @@ this.board.showScanned(
     col
 );
 
-console.log(
-    "Remaining solutions:",
-    this.hypothesisEngine.getSolutionCount()
-);
-console.log("Probability Map:");
+if (
+    this.probeManager.getProbes()
+        .includes(`${row},${col}`)
+) {
 
-for(let r = 0; r < 5; r++) {
+    element.classList.add("selected");
 
-    let line = "";
+} else {
 
-    for(let c = 0; c < 5; c++) {
-
-        const probability =
-            this.hypothesisEngine.getMineProbability(
-                r,
-                c
-            );
-
-        line +=
-            Math.round(probability * 100)
-            + "% ";
-
-    }
-
-    console.log(line);
+    element.classList.remove("selected");
 
 }
-    if (
-        this.probeManager.getProbes()
-            .includes(`${row},${col}`)
-    ) {
 
-        element.classList.add("selected");
-
-    } else {
-
-        element.classList.remove("selected");
-
-    }
-
-
-    console.log(
-        "Current probes:",
-        this.probeManager.getProbes()
-        );
-    const hypothesis =
-        new HypothesisEngine(
-        this.puzzle.getAllSolutions()
-    );
-
-    /*console.log(
-        "Starting solutions:",
-        hypothesis.getSolutionCount()
-    );
-*/
-hypothesis.filterByRadar(
-    2,
-    2,
-    this.radarEngine.scan(2,2)
+console.log(
+    "Current probes:",
+    this.probeManager.getProbes()
 );
-
-
-
-
 }
 
 }
