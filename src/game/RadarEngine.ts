@@ -10,35 +10,32 @@ export class RadarEngine {
     }
 
 
-    public scan(row: number, col: number): number {
+    public scan(
+    row: number,
+    col: number
+): number[] {
 
-        let closestDistance = Infinity;
+    // Index = distance
+    // Value = number of mines at that distance
+    const ringCounts = [0, 0, 0, 0, 0];
 
+    for (const mine of this.mines) {
 
-        for (const mine of this.mines) {
+        const [mineRow, mineCol] =
+            mine.split(",").map(Number);
 
-            const [mineRow, mineCol] =
-                mine.split(",").map(Number);
+        const distance =
+            Math.max(
+                Math.abs(row - mineRow),
+                Math.abs(col - mineCol)
+            );
 
-
-            const distance =
-                Math.max(
-                    Math.abs(row - mineRow),
-                    Math.abs(col - mineCol)
-                );
-
-                
-            if (distance < closestDistance) {
-
-                closestDistance = distance;
-
-            }
-            
-        }
-
-
-        return closestDistance;
+        ringCounts[distance]++;
 
     }
+
+    return ringCounts;
+
+}
 
 }

@@ -138,6 +138,7 @@ export class Game {
         "Radar signal:",
         signal
     );
+    console.log(signal);
     this.hypothesisEngine.filterByRadar(
         row,
         col,
