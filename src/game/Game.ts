@@ -39,7 +39,7 @@ export class Game {
         );
 
         
-        this.probeManager = new ProbeManager();
+        this.probeManager = new ProbeManager(2,5);
 
         this.probeEngine =
             new ProbeEngine(this.puzzle);
@@ -140,7 +140,10 @@ this.board.showRadarRings(
     col,
     signal
 );
-
+this.board.markProbe(
+    row,
+    col
+);
 
 this.scannedTiles.add(
     `${row},${col}`

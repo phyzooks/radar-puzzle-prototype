@@ -6,6 +6,7 @@ export class Board {
   private element: HTMLDivElement;
   private puzzle: Puzzle;
   private cells: HTMLDivElement[][];
+  private probeLocations: Set<string> = new Set();
 
   private onCellClick: (
     row: number,
@@ -89,6 +90,16 @@ export class Board {
     this.getProbabilityClass(percent)
   );*/
 }
+public markProbe(
+    row:number,
+    col:number
+) {
+
+    this.probeLocations.add(
+        `${row},${col}`
+    );
+
+}
 public showRadarResult(
   row: number,
   col: number,
@@ -161,7 +172,8 @@ public showScanned(
     probeCol: number,
     ringCounts: number[]
 ) {
-    console.log("showRadarRings", probeRow, probeCol, ringCounts);
+    
+  console.log("showRadarRings", probeRow, probeCol, ringCounts);
     for (let row = 0; row < this.size; row++) {
 
         for (let col = 0; col < this.size; col++) {
@@ -171,9 +183,14 @@ public showScanned(
                     Math.abs(row - probeRow),
                     Math.abs(col - probeCol)
                 );
-                if (distance > 2) {
+                if (distance > 1) {
                   continue;
                 }
+                const key = `${row},${col}`;
+
+if (this.probeLocations.has(key)) {
+    continue;
+}
             const count = ringCounts[distance];
 
             const cell = this.cells[row][col];

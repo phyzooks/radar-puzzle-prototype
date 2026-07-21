@@ -15,8 +15,7 @@ export class ProbeManager {
     const key = `${row},${col}`;
 
     if (this.selectedProbes.has(key)) {
-      this.selectedProbes.delete(key);
-      return true;
+      return false;
     }
 
     if (this.selectedProbes.size >= this.maxProbes) {
