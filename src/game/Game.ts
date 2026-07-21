@@ -1,10 +1,9 @@
 import { Board } from './Board';
 import { Puzzle } from './Puzzle';
 import { ProbeManager } from './ProbeManager';
-import { ProbeEngine } from './ProbeEngine';
-import { ProbabilityEngine } from './ProbabilityEngine';
+
 import { RadarEngine } from './RadarEngine';
-import { HypothesisEngine } from './HypothesisEngine';
+
 
 
 
@@ -16,15 +15,14 @@ export class Game {
     private board: Board;
     private puzzle: Puzzle;
     private probeManager: ProbeManager;
-    private probeEngine: ProbeEngine;
-    private probabilityEngine: ProbabilityEngine;
+    
     private radarEngine: RadarEngine;
-    private hypothesisEngine: HypothesisEngine;
+    
     private scannedTiles: Set<string>;
     
 
     private app: HTMLElement;
-
+    
 
     constructor(app: HTMLElement) {
 
@@ -41,14 +39,7 @@ export class Game {
         
         this.probeManager = new ProbeManager(2,5);
 
-        this.probeEngine =
-            new ProbeEngine(this.puzzle);
-
-
-        this.probabilityEngine =
-            new ProbabilityEngine(
-                this.puzzle.getAllSolutions()
-            );
+        
         this.radarEngine =
             new RadarEngine(
                 this.puzzle.getMineLocations()
@@ -161,11 +152,12 @@ if (
 
     element.classList.add("selected");
 
-} else {
+} 
+/*else {
 
     element.classList.remove("selected");
 
-}
+}*/
 
 console.log(
     "Current probes:",
