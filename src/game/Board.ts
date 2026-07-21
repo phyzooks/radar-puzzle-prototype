@@ -1,5 +1,5 @@
 import { Puzzle } from './Puzzle';
-import { HypothesisEngine } from './HypothesisEngine';
+//import { HypothesisEngine } from './HypothesisEngine';
 
 export class Board {
   private size: number;
@@ -70,7 +70,16 @@ export class Board {
     }
   }
 
+public showPlayer(
+    row: number,
+    col: number
+) {
 
+    const cell = this.cells[row][col];
+
+    cell.classList.add("player");
+
+}
   public showProbeResult(
   row:number,
   col:number,

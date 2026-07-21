@@ -21,7 +21,7 @@ body {
   display: grid;
   grid-template-columns: repeat(5, 80px);
   grid-template-rows: repeat(5, 80px);
-  gap: 0px;
+  gap: 4px;
 }
 
 .cell {
@@ -30,6 +30,10 @@ body {
   cursor: pointer;
   transition: 0.2s;
   white-space: pre-line;
+}
+
+.player {
+    outline: 4px solid cyan;
 }
 
 .cell:hover {

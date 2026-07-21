@@ -45,22 +45,25 @@ export class Game {
         
         this.scannedTiles = new Set();
         console.log(
-    "Player starts at:",
-    this.player.getRow(),
-    this.player.getCol()
-);
+            "Player starts at:",
+            this.player.getRow(),
+            this.player.getCol()
+            );
 
-console.log(
-    "Health:",
-    this.player.getHealth()
-);
+        console.log(
+            "Health:",
+            this.player.getHealth()
+            );
     }
 
 
     public start() {
 
     this.board.render(this.app);
-
+    this.board.showPlayer(
+        this.player.getRow(),
+        this.player.getCol()
+        );
     this.createControls();
 
     }
