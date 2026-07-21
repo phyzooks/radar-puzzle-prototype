@@ -1,10 +1,8 @@
 import { Board } from './Board';
 import { Puzzle } from './Puzzle';
 import { ProbeManager } from './ProbeManager';
-
+import { Player } from './Player';
 import { RadarEngine } from './RadarEngine';
-
-
 
 
 export class Game {
@@ -15,7 +13,7 @@ export class Game {
     private board: Board;
     private puzzle: Puzzle;
     private probeManager: ProbeManager;
-    
+    private player: Player;
     private radarEngine: RadarEngine;
     
     private scannedTiles: Set<string>;
@@ -35,7 +33,7 @@ export class Game {
             this.puzzle,
             this.handleCellClick.bind(this)
         );
-
+        this.player = new Player();
         
         this.probeManager = new ProbeManager(2,5);
 
@@ -46,6 +44,16 @@ export class Game {
             );
         
         this.scannedTiles = new Set();
+        console.log(
+    "Player starts at:",
+    this.player.getRow(),
+    this.player.getCol()
+);
+
+console.log(
+    "Health:",
+    this.player.getHealth()
+);
     }
 
 
