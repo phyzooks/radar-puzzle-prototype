@@ -8,8 +8,8 @@ import { RadarEngine } from './RadarEngine';
 export class Game {
 
     private turn:number = 1;
-    private turnDisplay:HTMLDivElement;
-    private endButton:HTMLButtonElement;
+    private turnDisplay!:HTMLDivElement;
+    private endButton!:HTMLButtonElement;
     private board: Board;
     private puzzle: Puzzle;
     private probeManager: ProbeManager;
