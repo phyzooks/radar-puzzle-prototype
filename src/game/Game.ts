@@ -10,6 +10,7 @@ export class Game {
     private turn:number = 1;
     private turnDisplay!:HTMLDivElement;
     private endButton!:HTMLButtonElement;
+    private statusDisplay!:HTMLDivElement;
     private board: Board;
     private puzzle!: Puzzle;
     private probeManager: ProbeManager;
@@ -23,6 +24,13 @@ export class Game {
     private waitingForMove: boolean = false;
     private waitingForNextTurn: boolean = false;
     private explosionEngine!: ExplosionEngine;
+
+    private updateProbeDisplay() {
+
+    this.turnDisplay.textContent =
+        `Probes remaining: ${this.probeManager.getRemaining()}`;
+
+}
 
     private createMineField() {
 
@@ -100,6 +108,7 @@ export class Game {
         this.goalCol
         );
     this.createControls();
+    this.updateProbeDisplay();
 
     }
 
@@ -110,40 +119,28 @@ export class Game {
     );
 
     this.waitingForMove = true;
-
+    this.statusDisplay.textContent =
+    "Choose a new location to move.";
 }
-private startNextTurn() {
-
-    console.log(
-        "Starting next turn"
-    );
-
-    this.createMineField();
-
-    this.probeManager.reset();
-
-    this.board.clearTurnDisplay();
-
-    this.waitingForNextTurn = false;
-
-    this.endButton.textContent =
-        "End Turn";
-
-}
-    private createControls() {
+private createControls() {
 
     this.turnDisplay =
         document.createElement('div');
 
     this.turnDisplay.textContent =
-        `Turn ${this.turn}/5`;
+    `Probes remaining: ${this.probeManager.getRemaining()}`;
+    
+    this.statusDisplay =
+        document.createElement('div');
 
-
+    this.statusDisplay.textContent =
+        "Select probe locations.";
+    
     this.endButton =
         document.createElement('button');
 
     this.endButton.textContent =
-        "End Turn";
+        "Click to Move";
 
 
     this.endButton.onclick =
@@ -161,17 +158,38 @@ private startNextTurn() {
         }
 
     };
-
-
+    
     this.app.appendChild(
         this.turnDisplay
     );
+
+    this.app.appendChild(this.statusDisplay);
 
     this.app.appendChild(
         this.endButton
     );
 
 }
+private startNextTurn() {
+
+    console.log(
+        "Starting next turn"
+    );
+
+    this.createMineField();
+
+    this.probeManager.reset();
+    this.updateProbeDisplay();
+    this.board.clearTurnDisplay();
+
+    this.waitingForNextTurn = false;
+    this.statusDisplay.textContent =
+    "Select probe locations.";
+    this.endButton.textContent =
+        "Click to Move";
+
+}
+    
     private tryMovePlayer(
     row: number,
     col: number
@@ -278,12 +296,12 @@ console.log(
     this.waitingForNextTurn = true;
 
     this.endButton.textContent =
-        "Next Turn";
+        "Begin Next Turn";
     
     this.turn++;
 
     this.turnDisplay.textContent =
-        `Turn ${this.turn}/5`;
+    `Probes remaining: ${this.probeManager.getRemaining()}`;
 }
 
     private handleCellClick(
@@ -300,7 +318,7 @@ console.log(
 }
     const added =
         this.probeManager.addProbe(row, col);
-
+    
 
     if (!added) {
 
@@ -311,6 +329,7 @@ console.log(
         return;
 
     }
+    this.updateProbeDisplay();
     const signal =
     this.radarEngine.scan(row,col);
 

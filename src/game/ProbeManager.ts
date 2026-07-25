@@ -2,6 +2,12 @@ export class ProbeManager {
   private selectedProbes: Set<string>;
   public reset() {
     this.selectedProbes.clear();
+    console.log(
+    "Probes used:",
+    this.selectedProbes.size,
+    "Remaining:",
+    this.maxProbes - this.selectedProbes.size
+);
   }
   private maxProbes: number;
   private turn: number;
@@ -36,7 +42,17 @@ export class ProbeManager {
   public getCount(): number {
     return this.selectedProbes.size;
   }
+  public getRemaining(): number {
 
+    return this.maxProbes - this.selectedProbes.size;
+    console.log(
+    "Probes used:",
+    this.selectedProbes.size,
+    "Remaining:",
+    this.maxProbes - this.selectedProbes.size
+);
+
+  }
   public endTurn(): string[] {
     const completedProbes = this.getProbes();
 
