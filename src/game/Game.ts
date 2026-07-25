@@ -3,7 +3,7 @@ import { Puzzle } from './Puzzle';
 import { ProbeManager } from './ProbeManager';
 import { Player } from './Player';
 import { RadarEngine } from './RadarEngine';
-
+import { ExplosionEngine } from './ExplosionEngine';
 
 export class Game {
 
@@ -21,24 +21,28 @@ export class Game {
     private readonly goalRow = this.boardSize - 1;
     private readonly goalCol = this.boardSize - 1;
     private waitingForMove: boolean = false;
+    private explosionEngine: ExplosionEngine;
 
     constructor(app: HTMLElement) {
 
         this.app = app;
         this.player = new Player();
 
-this.puzzle = new Puzzle(
-    this.boardSize,
-    this.player.getRow(),
-    this.player.getCol()
-);
-
-this.board = new Board(
-    this.boardSize,
-    this.puzzle,
-    this.handleCellClick.bind(this)
-);
-        
+    this.puzzle = new Puzzle(
+        this.boardSize,
+        this.player.getRow(),
+        this.player.getCol()
+    );
+    console.log(
+        "Mine locations:",
+        this.puzzle.getMineLocations()
+    )
+    ;
+    this.board = new Board(
+        this.boardSize,
+        this.puzzle,
+        this.handleCellClick.bind(this)
+    );
         
         this.probeManager = new ProbeManager(2,5);
 
@@ -47,7 +51,11 @@ this.board = new Board(
             new RadarEngine(
                 this.puzzle.getMineLocations()
             );
-        
+        this.explosionEngine =
+            new ExplosionEngine(
+            this.puzzle.getMineLocations()
+        );
+
         this.scannedTiles = new Set();
         console.log(
             "Player starts at:",
@@ -138,13 +146,36 @@ this.board = new Board(
         row,
         col
     );
-
+    console.log(
+    "Player moved to:",
+    row,
+    col
+);
     this.board.movePlayer(
         oldRow,
         oldCol,
         row,
         col
     );
+    const damage =
+        this.explosionEngine.calculateDamage(
+            row,
+            col
+        );
+
+        console.log(
+        "Explosion damage:",
+        damage
+        );
+
+        this.player.takeDamage(
+            damage
+        );
+
+        console.log(
+        "Health:",
+        this.player.getHealth()
+        );
 
     this.waitingForMove = false;
 
