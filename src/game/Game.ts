@@ -11,6 +11,7 @@ export class Game {
     private probeDisplay!:HTMLDivElement;
     private endButton!:HTMLButtonElement;
     private statusDisplay!:HTMLDivElement;
+    private healthDisplay!: HTMLDivElement;
     private board: Board;
     private puzzle!: Puzzle;
     private probeManager: ProbeManager;
@@ -29,6 +30,12 @@ export class Game {
 
     this.probeDisplay.textContent =
         `Probes remaining: ${this.probeManager.getRemaining()}`;
+
+}
+    private updateHealthDisplay() {
+
+    this.healthDisplay.textContent =
+        `Health: ${this.player.getHealth()}`;
 
 }
 
@@ -126,6 +133,12 @@ export class Game {
 }
 private createControls() {
 
+    this.healthDisplay =
+    document.createElement('div');
+
+   this.healthDisplay.textContent =
+    `Health: ${this.player.getHealth()}`;
+
     this.probeDisplay =
         document.createElement('div');
 
@@ -160,16 +173,13 @@ private createControls() {
         }
 
     };
+    this.app.appendChild(this.healthDisplay);
     
-    this.app.appendChild(
-        this.probeDisplay
-    );
+    this.app.appendChild(this.probeDisplay);
 
     this.app.appendChild(this.statusDisplay);
 
-    this.app.appendChild(
-        this.endButton
-    );
+    this.app.appendChild(this.endButton);
 
 }
 private startNextTurn() {
@@ -251,10 +261,8 @@ for (const explosion of explosions) {
         damage
         );
 
-    this.player.takeDamage(
-            damage
-        );
-    
+    this.player.takeDamage(damage);
+    this.updateHealthDisplay();
     console.log(
     "----- Turn Summary -----"
 );
