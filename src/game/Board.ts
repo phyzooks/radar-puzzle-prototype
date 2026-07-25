@@ -84,10 +84,10 @@ public clearProbeDisplay() {
     this.element = document.createElement('div');
     this.element.className = 'board';
     this.element.style.gridTemplateColumns =
-    `repeat(${this.size}, 80px)`;
+    `repeat(${this.size}, 1fr)`;
 
-    this.element.style.gridTemplateRows =
-    `repeat(${this.size}, 80px)`;
+this.element.style.gridTemplateRows =
+    `repeat(${this.size}, 1fr)`;
     this.createCells();
   }
 
