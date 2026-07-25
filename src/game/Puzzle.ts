@@ -5,14 +5,23 @@ export class Puzzle {
 
   private size:number;
   private actualSolution:number[];
+  private safeRow:number;
+  private safeCol:number;
 
-
-  constructor(size:number) {
+  constructor(
+    size:number,
+    safeRow:number,
+    safeCol:number
+) {
 
     this.size = size;
-    this.actualSolution = this.generateRandomSolution();
+    this.safeRow = safeRow;
+    this.safeCol = safeCol;
 
-  }
+    this.actualSolution =
+        this.generateRandomSolution();
+
+}
 
 
   private generateRandomSolution():number[] {
@@ -35,7 +44,15 @@ export class Puzzle {
     }
 
 
-    return columns;
+    if (
+    columns[this.safeRow] === this.safeCol
+) {
+
+    return this.generateRandomSolution();
+
+}
+
+return columns;
 
   }
 

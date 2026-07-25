@@ -25,15 +25,20 @@ export class Game {
     constructor(app: HTMLElement) {
 
         this.app = app;
-
-        this.puzzle = new Puzzle(this.boardSize);
-
-        this.board = new Board(
-        this.boardSize,
-        this.puzzle,
-        this.handleCellClick.bind(this)
-);
         this.player = new Player();
+
+this.puzzle = new Puzzle(
+    this.boardSize,
+    this.player.getRow(),
+    this.player.getCol()
+);
+
+this.board = new Board(
+    this.boardSize,
+    this.puzzle,
+    this.handleCellClick.bind(this)
+);
+        
         
         this.probeManager = new ProbeManager(2,5);
 
@@ -118,14 +123,6 @@ export class Game {
 
     const oldRow = this.player.getRow();
     const oldCol = this.player.getCol();
-
-    const rowDistance = Math.abs(
-        row - oldRow
-    );
-
-    const colDistance = Math.abs(
-        col - oldCol
-    );
 
     if (!this.player.canMoveTo(row, col)) {
 

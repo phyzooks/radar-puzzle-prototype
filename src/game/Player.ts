@@ -33,7 +33,24 @@ export class Player {
         this.col = col;
 
     }
-    public canMoveTo(
+   /* public canMoveTo(
+    row: number,
+    col: number
+): boolean {
+
+    const rowDistance =
+        Math.abs(row - this.row);
+
+    const colDistance =
+        Math.abs(col - this.col);
+
+    return (
+        rowDistance + colDistance === 1
+    );
+
+}*/
+//This is 8-direction movement. May use for easy mode.
+public canMoveTo(
     row: number,
     col: number
 ): boolean {
@@ -49,7 +66,7 @@ export class Player {
         colDistance <= 1 &&
         !(rowDistance === 0 && colDistance === 0)
     );
-// TODO: decide if this is easy mode and hard mode is more restrictive
+
 }
 
     public move(
