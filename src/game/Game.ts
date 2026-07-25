@@ -20,6 +20,7 @@ export class Game {
     private readonly boardSize = 5;
     private readonly goalRow = this.boardSize - 1;
     private readonly goalCol = this.boardSize - 1;
+    private waitingForMove: boolean = false;
 
     constructor(app: HTMLElement) {
 
@@ -75,35 +76,10 @@ export class Game {
     private endTurn() {
 
     console.log(
-        "Ending turn:",
-        this.turn
+        "Choose movement location"
     );
 
-    const oldRow = this.player.getRow();
-    const oldCol = this.player.getCol();
-
-    const newRow = oldRow;
-    const newCol = oldCol + 1;
-
-
-    this.player.move(
-        newRow,
-        newCol
-    );
-
-
-    this.board.movePlayer(
-        oldRow,
-        oldCol,
-        newRow,
-        newCol
-    );
-
-
-    this.turn++;
-
-    this.turnDisplay.textContent =
-        `Turn ${this.turn}/5`;
+    this.waitingForMove = true;
 
 }
     private createControls() {
@@ -135,13 +111,63 @@ export class Game {
     );
 
 }
+    private tryMovePlayer(
+    row: number,
+    col: number
+) {
+
+    const oldRow = this.player.getRow();
+    const oldCol = this.player.getCol();
+
+    const rowDistance = Math.abs(
+        row - oldRow
+    );
+
+    const colDistance = Math.abs(
+        col - oldCol
+    );
+
+    if (
+        rowDistance + colDistance !== 1
+    ) {
+        console.log(
+            "Invalid move"
+        );
+        return;
+    }
+
+    this.player.move(
+        row,
+        col
+    );
+
+    this.board.movePlayer(
+        oldRow,
+        oldCol,
+        row,
+        col
+    );
+
+    this.waitingForMove = false;
+
+    this.turn++;
+
+    this.turnDisplay.textContent =
+        `Turn ${this.turn}/5`;
+}
 
     private handleCellClick(
     row: number,
     col: number,
     element: HTMLDivElement
     ) {
+    if (this.waitingForMove) {
 
+    this.tryMovePlayer(row, col);
+
+    return;
+
+}
     const added =
         this.probeManager.addProbe(row, col);
 
