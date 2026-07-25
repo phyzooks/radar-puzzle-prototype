@@ -1,5 +1,4 @@
 import { Puzzle } from './Puzzle';
-//import { HypothesisEngine } from './HypothesisEngine';
 
 export class Board {
   private size: number;
@@ -14,7 +13,54 @@ export class Board {
     element: HTMLDivElement
   ) => void;
 
+  /*public clearTurnDisplay() {
 
+    for(let row = 0; row < this.size; row++) {
+
+        for(let col = 0; col < this.size; col++) {
+
+            const cell = this.cells[row][col];
+
+            cell.textContent = "";
+
+            cell.classList.remove(
+                "zero",
+                "one",
+                "two",
+                "three",
+                "scanned",
+                "mine"
+            );
+
+        }
+
+    }
+
+}*/
+public clearTurnDisplay() {
+
+    this.cells.forEach(row => {
+
+        row.forEach(cell => {
+
+            cell.textContent = "";
+
+            cell.classList.remove(
+                "zero",
+                "one",
+                "two",
+                "three",
+                "mine",
+                "scanned"
+            );
+
+        });
+
+    });
+
+    this.probeLocations.clear();
+
+}
   constructor(
     size: number,
     puzzle: Puzzle,
@@ -55,9 +101,9 @@ export class Board {
         cell.className = 'cell';
 
 
-        if (this.puzzle.isMine(row, col)) {
-          cell.dataset.mine = "true";
-        }
+        //if (this.puzzle.isMine(row, col)) {
+        //  cell.dataset.mine = "true";
+        //}
 
 
         cell.addEventListener('click', () => {
@@ -165,38 +211,7 @@ public movePlayer(
         .classList.add("player");
 
 }
-  /*private getProbabilityClass(
-    percent:number
-):string {
-
-    if (percent === 0) {
-        return "safe";
-    }
-
-    if (percent <= 20) {
-        return "very-low";
-    }
-
-    if (percent <= 40) {
-        return "low";
-    }
-
-    if (percent <= 60) {
-        return "medium";
-    }
-
-    if (percent <= 80) {
-        return "high";
-    }
-
-    if (percent < 100) {
-        return "very-high";
-    }
-
-    return "certain";
-}*/
-
-
+  
   public clearSelections() {
 
     this.cells.forEach(row => {

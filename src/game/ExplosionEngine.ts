@@ -39,12 +39,12 @@ export class ExplosionEngine {
             }
             else if (distance === 1) {
 
-                damage += 30;
+                damage += 10;
 
             }
             else if (distance === 2) {
 
-                damage += 5;
+                damage += 2;
 
             }
 

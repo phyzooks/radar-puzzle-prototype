@@ -1,5 +1,8 @@
 export class ProbeManager {
   private selectedProbes: Set<string>;
+  public reset() {
+    this.selectedProbes.clear();
+  }
   private maxProbes: number;
   private turn: number;
   private maxTurns: number;

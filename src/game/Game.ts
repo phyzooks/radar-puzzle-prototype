@@ -11,24 +11,56 @@ export class Game {
     private turnDisplay!:HTMLDivElement;
     private endButton!:HTMLButtonElement;
     private board: Board;
-    private puzzle: Puzzle;
+    private puzzle!: Puzzle;
     private probeManager: ProbeManager;
-    private player: Player;
-    private radarEngine: RadarEngine;
+    private player!: Player;
+    private radarEngine!: RadarEngine;
     private scannedTiles: Set<string>;
     private app: HTMLElement;
     private readonly boardSize = 5;
     private readonly goalRow = this.boardSize - 1;
     private readonly goalCol = this.boardSize - 1;
     private waitingForMove: boolean = false;
-    private explosionEngine: ExplosionEngine;
+    private explosionEngine!: ExplosionEngine;
+
+    private createMineField() {
+
+    this.puzzle = new Puzzle(
+        this.boardSize,
+        this.player.getRow(),
+        this.player.getCol()
+    );
+
+
+    this.radarEngine =
+        new RadarEngine(
+            this.puzzle.getMineLocations()
+        );
+
+
+    this.explosionEngine =
+        new ExplosionEngine(
+            this.puzzle.getMineLocations()
+        );
+
+
+    console.log(
+        "New mine locations:",
+        this.puzzle.getMineLocations()
+    );
+
+}
 
     constructor(app: HTMLElement) {
 
         this.app = app;
         this.player = new Player();
 
-    this.puzzle = new Puzzle(
+    
+    this.createMineField();
+    
+
+    /*this.puzzle = new Puzzle(
         this.boardSize,
         this.player.getRow(),
         this.player.getCol()
@@ -36,27 +68,18 @@ export class Game {
     console.log(
         "Mine locations:",
         this.puzzle.getMineLocations()
-    )
-    ;
+    );
+    */
     this.board = new Board(
         this.boardSize,
         this.puzzle,
         this.handleCellClick.bind(this)
     );
         
-        this.probeManager = new ProbeManager(2,5);
+    this.probeManager = new ProbeManager(2,5);
 
         
-        this.radarEngine =
-            new RadarEngine(
-                this.puzzle.getMineLocations()
-            );
-        this.explosionEngine =
-            new ExplosionEngine(
-            this.puzzle.getMineLocations()
-        );
-
-        this.scannedTiles = new Set();
+    this.scannedTiles = new Set();
         console.log(
             "Player starts at:",
             this.player.getRow(),
@@ -163,20 +186,23 @@ export class Game {
             col
         );
 
-        console.log(
+    console.log(
         "Explosion damage:",
         damage
         );
 
-        this.player.takeDamage(
+    this.player.takeDamage(
             damage
         );
-
-        console.log(
+    
+    this.createMineField();
+    
+    console.log(
         "Health:",
         this.player.getHealth()
         );
-
+    this.probeManager.reset();
+    this.board.clearTurnDisplay();
     this.waitingForMove = false;
 
     this.turn++;
