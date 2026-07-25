@@ -43,57 +43,33 @@ export class Game {
         new ExplosionEngine(
             this.puzzle.getMineLocations()
         );
+        
+        this.board.setPuzzle(
+            this.puzzle
+        );
 
 
     console.log(
         "New mine locations:",
         this.puzzle.getMineLocations()
     );
+    
+    
 
 }
-private startNextTurn() {
 
-    console.log(
-        "Starting next turn"
-    );
-
-    this.createMineField();
-
-    this.probeManager.reset();
-
-    this.board.clearTurnDisplay();
-
-    this.waitingForNextTurn = false;
-
-    this.endButton.textContent =
-        "End Turn";
-
-}
     constructor(app: HTMLElement) {
 
         this.app = app;
         this.player = new Player();
 
     
-    this.createMineField();
-    
-
-    /*this.puzzle = new Puzzle(
-        this.boardSize,
-        this.player.getRow(),
-        this.player.getCol()
-    );
-    console.log(
-        "Mine locations:",
-        this.puzzle.getMineLocations()
-    );
-    */
     this.board = new Board(
         this.boardSize,
         this.puzzle,
         this.handleCellClick.bind(this)
     );
-        
+        this.createMineField();
     this.probeManager = new ProbeManager(2,5);
 
         
@@ -134,6 +110,24 @@ private startNextTurn() {
     );
 
     this.waitingForMove = true;
+
+}
+private startNextTurn() {
+
+    console.log(
+        "Starting next turn"
+    );
+
+    this.createMineField();
+
+    this.probeManager.reset();
+
+    this.board.clearTurnDisplay();
+
+    this.waitingForNextTurn = false;
+
+    this.endButton.textContent =
+        "End Turn";
 
 }
     private createControls() {
@@ -216,6 +210,21 @@ private startNextTurn() {
             row,
             col
         );
+    const explosions =
+    this.explosionEngine.getExplosionResults(
+        row,
+        col
+    );
+
+for (const explosion of explosions) {
+
+    this.board.showDamage(
+        explosion.row,
+        explosion.col,
+        explosion.damage
+    );
+
+}
 
     console.log(
         "Explosion damage:",
@@ -257,20 +266,13 @@ console.log(
 );
     this.board.revealMines();
 
-    this.createMineField();
-    
+       
     console.log(
         "Health:",
         this.player.getHealth()
         );
 
-    /*this.probeManager.reset();
-
-    this.board.clearTurnDisplay();
-
-    this.waitingForMove = false;
-    */
-    
+        
     this.waitingForMove = false;
 
     this.waitingForNextTurn = true;
@@ -343,16 +345,7 @@ if (
     element.classList.add("selected");
 
 } 
-/*else {
 
-    element.classList.remove("selected");
-
-}*/
-
-/*console.log(
-    "Current probes:",
-    this.probeManager.getProbes()
-);*/
 }
 
 }

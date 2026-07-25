@@ -33,22 +33,7 @@ export class Player {
         this.col = col;
 
     }
-   /* public canMoveTo(
-    row: number,
-    col: number
-): boolean {
-
-    const rowDistance =
-        Math.abs(row - this.row);
-
-    const colDistance =
-        Math.abs(col - this.col);
-
-    return (
-        rowDistance + colDistance === 1
-    );
-
-}*/
+  
 //This is 8-direction movement. May use for easy mode.
 public canMoveTo(
     row: number,

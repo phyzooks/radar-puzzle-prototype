@@ -57,7 +57,7 @@ p {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 6px;
+  font-size: 24px;
   font-weight: bold;
 }
 
@@ -84,11 +84,7 @@ p {
 .scanned {
     border: 5px solid white;
 }
-.damage {
-    animation: floatAway 1s ease-out;
-}
-
-@keyframes floatAway {
+/*@keyframes floatAway {
 
     from {
         opacity: 1;
@@ -101,3 +97,12 @@ p {
     }
 
 }
+    */
+.damage {
+  /*animation: floatAway 1s ease-out;  */
+  color: white;
+    font-weight: bold;
+    
+}
+
+

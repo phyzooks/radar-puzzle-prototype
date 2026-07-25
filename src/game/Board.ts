@@ -7,36 +7,21 @@ export class Board {
   private cells: HTMLDivElement[][];
   private probeLocations: Set<string> = new Set();
 
+public setPuzzle(
+    puzzle: Puzzle
+) {
+
+    this.puzzle = puzzle;
+
+}
+
   private onCellClick: (
     row: number,
     col: number,
     element: HTMLDivElement
   ) => void;
 
-  /*public clearTurnDisplay() {
-
-    for(let row = 0; row < this.size; row++) {
-
-        for(let col = 0; col < this.size; col++) {
-
-            const cell = this.cells[row][col];
-
-            cell.textContent = "";
-
-            cell.classList.remove(
-                "zero",
-                "one",
-                "two",
-                "three",
-                "scanned",
-                "mine"
-            );
-
-        }
-
-    }
-
-}*/
+ 
 public revealMines() {
 
     for(let row = 0; row < this.size; row++) {
@@ -55,6 +40,7 @@ public revealMines() {
     }
 
 }
+
 public clearTurnDisplay() {
 
     this.cells.forEach(row => {
@@ -175,9 +161,7 @@ public showGoal(
   cell.textContent =
     `${percent}%\nR:${radarValue}`;
 
-  /*cell.classList.add(
-    this.getProbabilityClass(percent)
-  );*/
+  
 }
 public showDamage(
     row:number,
@@ -193,6 +177,12 @@ public showDamage(
     cell.classList.add(
         "damage"
     );
+    //console.log(
+    //"Showing damage",
+    //row,
+    //col,
+    //amount
+//);
 
 }
 public markProbe(
