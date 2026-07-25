@@ -127,14 +127,15 @@ export class Game {
         col - oldCol
     );
 
-    if (
-        rowDistance + colDistance !== 1
-    ) {
-        console.log(
-            "Invalid move"
-        );
-        return;
-    }
+    if (!this.player.canMoveTo(row, col)) {
+
+    console.log(
+        "Invalid move"
+    );
+
+    return;
+
+}
 
     this.player.move(
         row,

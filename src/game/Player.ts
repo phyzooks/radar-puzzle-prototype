@@ -34,9 +34,9 @@ export class Player {
 
     }
     public canMoveTo(
-        row: number,
-        col: number
-    ): boolean {
+    row: number,
+    col: number
+): boolean {
 
     const rowDistance =
         Math.abs(row - this.row);
@@ -49,8 +49,8 @@ export class Player {
         colDistance <= 1 &&
         !(rowDistance === 0 && colDistance === 0)
     );
-
-    }
+// TODO: decide if this is easy mode and hard mode is more restrictive
+}
 
     public move(
         row: number,
