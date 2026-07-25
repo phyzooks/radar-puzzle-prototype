@@ -84,3 +84,20 @@ p {
 .scanned {
     border: 5px solid white;
 }
+.damage {
+    animation: floatAway 1s ease-out;
+}
+
+@keyframes floatAway {
+
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+}

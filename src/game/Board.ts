@@ -37,6 +37,24 @@ export class Board {
     }
 
 }*/
+public revealMines() {
+
+    for(let row = 0; row < this.size; row++) {
+
+        for(let col = 0; col < this.size; col++) {
+
+            if(this.puzzle.isMine(row,col)) {
+
+                this.cells[row][col]
+                    .classList.add("mine");
+
+            }
+
+        }
+
+    }
+
+}
 public clearTurnDisplay() {
 
     this.cells.forEach(row => {
@@ -102,7 +120,7 @@ public clearTurnDisplay() {
 
 
         //if (this.puzzle.isMine(row, col)) {
-        //  cell.dataset.mine = "true";
+          //cell.dataset.mine = "true";
         //}
 
 
@@ -160,6 +178,22 @@ public showGoal(
   /*cell.classList.add(
     this.getProbabilityClass(percent)
   );*/
+}
+public showDamage(
+    row:number,
+    col:number,
+    amount:number
+) {
+
+    const cell = this.cells[row][col];
+
+    cell.textContent =
+        `-${amount}`;
+
+    cell.classList.add(
+        "damage"
+    );
+
 }
 public markProbe(
     row:number,

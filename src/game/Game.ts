@@ -21,6 +21,7 @@ export class Game {
     private readonly goalRow = this.boardSize - 1;
     private readonly goalCol = this.boardSize - 1;
     private waitingForMove: boolean = false;
+    private waitingForNextTurn: boolean = false;
     private explosionEngine!: ExplosionEngine;
 
     private createMineField() {
@@ -50,7 +51,24 @@ export class Game {
     );
 
 }
+private startNextTurn() {
 
+    console.log(
+        "Starting next turn"
+    );
+
+    this.createMineField();
+
+    this.probeManager.reset();
+
+    this.board.clearTurnDisplay();
+
+    this.waitingForNextTurn = false;
+
+    this.endButton.textContent =
+        "End Turn";
+
+}
     constructor(app: HTMLElement) {
 
         this.app = app;
@@ -135,7 +153,20 @@ export class Game {
 
 
     this.endButton.onclick =
-        () => this.endTurn();
+    () => {
+
+        if (this.waitingForNextTurn) {
+
+            this.startNextTurn();
+
+        }
+        else {
+
+            this.endTurn();
+
+        }
+
+    };
 
 
     this.app.appendChild(
@@ -195,16 +226,58 @@ export class Game {
             damage
         );
     
+    console.log(
+    "----- Turn Summary -----"
+);
+
+console.log(
+    "Turn:",
+    this.turn
+);
+
+console.log(
+    "Moved to:",
+    row,
+    col
+);
+
+console.log(
+    "Explosion damage:",
+    damage
+);
+
+console.log(
+    "Health:",
+    this.player.getHealth(),
+    "/ 100"
+);
+
+console.log(
+    "------------------------"
+);
+    this.board.revealMines();
+
     this.createMineField();
     
     console.log(
         "Health:",
         this.player.getHealth()
         );
-    this.probeManager.reset();
+
+    /*this.probeManager.reset();
+
     this.board.clearTurnDisplay();
+
+    this.waitingForMove = false;
+    */
+    
     this.waitingForMove = false;
 
+    this.waitingForNextTurn = true;
+
+    this.endButton.textContent =
+        "Next Turn";
+    
     this.turn++;
 
     this.turnDisplay.textContent =
