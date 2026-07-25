@@ -41,7 +41,7 @@ public revealMines() {
 
 }
 
-public clearTurnDisplay() {
+public clearProbeDisplay() {
 
     this.cells.forEach(row => {
 

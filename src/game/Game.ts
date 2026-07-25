@@ -8,7 +8,7 @@ import { ExplosionEngine } from './ExplosionEngine';
 export class Game {
 
     private turn:number = 1;
-    private turnDisplay!:HTMLDivElement;
+    private probeDisplay!:HTMLDivElement;
     private endButton!:HTMLButtonElement;
     private statusDisplay!:HTMLDivElement;
     private board: Board;
@@ -27,7 +27,7 @@ export class Game {
 
     private updateProbeDisplay() {
 
-    this.turnDisplay.textContent =
+    this.probeDisplay.textContent =
         `Probes remaining: ${this.probeManager.getRemaining()}`;
 
 }
@@ -77,7 +77,9 @@ export class Game {
         this.puzzle,
         this.handleCellClick.bind(this)
     );
-        this.createMineField();
+    
+    this.createMineField();
+    
     this.probeManager = new ProbeManager(2,5);
 
         
@@ -124,10 +126,10 @@ export class Game {
 }
 private createControls() {
 
-    this.turnDisplay =
+    this.probeDisplay =
         document.createElement('div');
 
-    this.turnDisplay.textContent =
+    this.probeDisplay.textContent =
     `Probes remaining: ${this.probeManager.getRemaining()}`;
     
     this.statusDisplay =
@@ -160,7 +162,7 @@ private createControls() {
     };
     
     this.app.appendChild(
-        this.turnDisplay
+        this.probeDisplay
     );
 
     this.app.appendChild(this.statusDisplay);
@@ -180,7 +182,7 @@ private startNextTurn() {
 
     this.probeManager.reset();
     this.updateProbeDisplay();
-    this.board.clearTurnDisplay();
+    this.board.clearProbeDisplay();
 
     this.waitingForNextTurn = false;
     this.statusDisplay.textContent =
@@ -300,7 +302,7 @@ console.log(
     
     this.turn++;
 
-    this.turnDisplay.textContent =
+    this.probeDisplay.textContent =
     `Probes remaining: ${this.probeManager.getRemaining()}`;
 }
 
