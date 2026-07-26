@@ -203,20 +203,20 @@ private startNextTurn() {
 }
     
     private tryMovePlayer(
-    row: number,
-    col: number
-) {
+        row: number,
+        col: number
+        ) {
 
-    const oldRow = this.player.getRow();
-    const oldCol = this.player.getCol();
+        const oldRow = this.player.getRow();
+        const oldCol = this.player.getCol();
 
     if (!this.player.canMoveTo(row, col)) {
 
-    console.log(
+        console.log(
         "Invalid move"
-    );
+        );
 
-    return;
+        return;
 
 }
 
