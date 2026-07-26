@@ -4,7 +4,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #000000;
+  background: rgb(43, 28, 11);
   font-family: Arial, sans-serif;
   
 }
@@ -27,27 +27,27 @@ body {
 }
 
 .cell {
-  background: #333;
-  border: 1px solid #666;
+  background: rgb(119, 81, 30);
+  border: 1px solid #463e34;
   cursor: pointer;
-  transition: 0.2s;
+  transition: 0.3s;
   white-space: pre-line;
-  width: 100%;
-  height: 100%;
+  width: 90%;
+  height: 90%;
   font-size: clamp(10px, 3vw, 18px);
 }
 
 .goal {
-    outline: 2px solid lime;
+    outline: 2px solid rgb(0, 255, 0);
 }
 
 .player {
-    outline: 2px solid cyan;
+    outline: 4px solid rgb(68, 140, 248);
 }
 
 .cell:hover {
   /*background: #555;*/
-  border: 2px solid rgb(229, 255, 0);
+  border: 3px solid rgb(229, 255, 0);
 
 }
 
@@ -69,28 +69,40 @@ p {
 }
 
 .zero {
-    background-color: rgb(159, 255, 4);
+    background-color: rgb(119, 81, 30);
 }
 
 .one {
-    background-color: rgb(248, 248, 122);
+    background-color: rgb(220, 252, 82);
 }
 
 .two {
-    background-color: rgb(255, 187, 0);
+    background-color: orange;
 }
 
 .three {
-    background-color: rgb(220, 0, 0);
+    background-color: rgb(253, 89, 29);
 }
 
 .mine {
-    background-color: rgb(170, 0, 255);
+  animation: pulse 1s infinite; /* Apply the animation */
+    background-color: rgb(183, 0, 255);
 }
 
 .scanned {
     border: 2px solid white;
 }
+
+@keyframes pulse {
+  0%, 100% {
+    background-color: purple; /* Start color */
+  }
+  50% {
+    background-color: blue; /* Mid color */
+  }
+}
+
+
 /*@keyframes floatAway {
 
     from {

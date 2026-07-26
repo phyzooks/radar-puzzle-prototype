@@ -11,9 +11,9 @@ export class RadarEngine {
 
 
     public scan(
-    row: number,
-    col: number
-): number[] {
+        row: number,
+        col: number
+    ): number[] {
 
     // Index = distance
     // Value = number of mines at that distance

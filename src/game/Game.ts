@@ -236,10 +236,7 @@ private startNextTurn() {
         col
     );
     const damage =
-        this.explosionEngine.calculateDamage(
-            row,
-            col
-        );
+        this.explosionEngine.calculateDamage(row,col)-2*this.probeManager.getRemaining();
     const explosions =
     this.explosionEngine.getExplosionResults(
         row,

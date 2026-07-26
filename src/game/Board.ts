@@ -251,7 +251,8 @@ public movePlayer(
     ringCounts: number[]
 ) {
     
-  console.log("showRadarRings", probeRow, probeCol, ringCounts);
+    console.log("showRadarRings", probeRow, probeCol, ringCounts);
+    
     for (let row = 0; row < this.size; row++) {
 
         for (let col = 0; col < this.size; col++) {
@@ -261,14 +262,14 @@ public movePlayer(
                     Math.abs(row - probeRow),
                     Math.abs(col - probeCol)
                 );
-                if (distance > 1) {
+                if (distance > 2) {
                   continue;
                 }
                 const key = `${row},${col}`;
 
-if (this.probeLocations.has(key)) {
-    continue;
-}
+            if (this.probeLocations.has(key)) {
+              continue;
+              }
             const count = ringCounts[distance];
 
             const cell = this.cells[row][col];
