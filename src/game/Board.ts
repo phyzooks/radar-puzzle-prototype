@@ -262,7 +262,7 @@ public movePlayer(
                     Math.abs(row - probeRow),
                     Math.abs(col - probeCol)
                 );
-                if (distance > 2) {
+                if (distance > 1) {
                   continue;
                 }
                 const key = `${row},${col}`;
@@ -308,7 +308,7 @@ else {
             break;
 
     }
-
+    cell.textContent = `${count}`;//adds number of mines in ring as text
 }
 
         }

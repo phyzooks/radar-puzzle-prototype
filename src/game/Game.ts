@@ -19,7 +19,7 @@ export class Game {
     private radarEngine!: RadarEngine;
     private scannedTiles: Set<string>;
     private app: HTMLElement;
-    private readonly boardSize = 7;
+    private readonly boardSize = 5;
     private readonly goalRow = this.boardSize - 1;
     private readonly goalCol = this.boardSize - 1;
     private waitingForMove: boolean = false;
