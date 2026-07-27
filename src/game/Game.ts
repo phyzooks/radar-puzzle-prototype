@@ -87,7 +87,7 @@ export class Game {
     
     this.createMineField();
     
-    this.probeManager = new ProbeManager(3,5);
+    this.probeManager = new ProbeManager(4,100);
 
         
     this.scannedTiles = new Set();

@@ -30,7 +30,7 @@ body {
   background: rgb(73, 55, 29);
   border: 1px solid #463e34;
   cursor: pointer;
-  transition: 0.3s;
+  transition: 0.8s;
   white-space: pre-line;
   width: 90%;
   height: 90%;
@@ -87,7 +87,7 @@ p {
 
 .mine {
   animation: minepulse 1s infinite; /* Apply the animation */
-    background-color: rgb(183, 0, 255);
+    /*background-color: rgb(183, 0, 255);*/
     border: 3px solid rgb(255, 0, 0);
 }
 

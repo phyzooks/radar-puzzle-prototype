@@ -17,6 +17,10 @@ export class ExplosionEngine {
 
     }
 
+    private oneMine = 10;
+    private twoMine = 3;
+    private threeMine = 1;
+    private onMine = 50;
 
     public calculateDamage(
         row:number,
@@ -41,17 +45,22 @@ export class ExplosionEngine {
 
             if (distance === 0) {
 
-                damage += 100;
+                damage += this.onMine;
 
             }
             else if (distance === 1) {
 
-                damage += 10;
+                damage += this.oneMine;
 
             }
             else if (distance === 2) {
 
-                damage += 2;
+                damage += this.twoMine;
+
+            }
+            else if (distance === 3) {
+
+                damage += this.threeMine;
 
             }
 
@@ -87,19 +96,24 @@ export class ExplosionEngine {
 
         if (distance === 0) {
 
-            damage = 100;
+                damage += this.onMine;
 
-        }
-        else if (distance === 1) {
+            }
+            else if (distance === 1) {
 
-            damage = 10;
+                damage += this.oneMine;
 
-        }
-        else if (distance === 2) {
+            }
+            else if (distance === 2) {
 
-            damage = 2;
+                damage += this.twoMine;
 
-        }
+            }
+            else if (distance === 3) {
+
+                damage += this.threeMine;
+
+            }
 
 
         if (damage > 0) {
